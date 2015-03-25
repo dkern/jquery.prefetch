@@ -1,0 +1,51 @@
+{
+	"name": "prefetch",
+    "title": "jQuery Prefetch - Lightweight Image and Background Preloader",
+	"version": "0.1.1",
+	"author":
+	{
+		"name": "Daniel 'Eisbehr' Kern",
+		"url": "http://eisbehr.de/"
+	},
+	"licenses":
+	[
+		{
+			"type": "MIT",
+			"url": "http://www.opensource.org/licenses/mit-license.php"
+		},
+		{
+			"type": "GPL-2.0",
+			"url": "http://www.gnu.org/licenses/gpl-2.0.html"
+		}
+	],
+	"dependencies":
+	{
+		"jquery": ">=1.3.0"
+	},
+	"description": "Prefetch is a lightweight image, list and background preloader for jQuery. Just give them a list of images or elements and the plugin will load every image for you.",
+	"keywords":
+	[
+	  "prefetch",
+	  "preload",
+	  "preloader",
+	  "load",
+	  "loader",
+	  "image",
+	  "images",
+	  "background",
+	  "delay",
+	  "delayed",
+	  "jquery",
+	  "jquery-plugin"
+	],
+	"homepage": "http://jquery.eisbehr.de/prefetch/",
+	"demo": "http://jquery.eisbehr.de/prefetch/",
+	"bugs": "http://github.com/eisbehr-/jquery.prefetch/issues",
+	"docs": "http://jquery.eisbehr.de/prefetch/",
+	"download": "http://jquery.eisbehr.de/prefetch/",
+	"files":
+	[
+		"jquery.prefetch.js",
+		"jquery.prefetch.min.js"
+	]
+}
