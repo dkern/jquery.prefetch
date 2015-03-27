@@ -1,7 +1,7 @@
 {
     "name": "jquery-prefetch",
     "description": "Prefetch is a lightweight image, list and background preloader for jQuery. Just give them a list of images or elements and the plugin will load every image for you.",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "main": "jquery.prefetch.min.js",
     "license":
     [

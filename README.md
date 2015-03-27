@@ -48,20 +48,21 @@ jQuery("img, div").Prefetch();
 ```
 
 
-## Load a List
+## Load a List of Images
 Prefetch is even able to load a list of images directly. Pass an array, object or a simple string to load everything:
 ```JS
 jQuery.Prefetch(["images/1.jpg", "images/2.jpg", "images/3.jpg"]);
-jQuery.Prefetch([{url: "images/1.jpg"}, {url: "images/2.jpg"}, {url: "images/3.jpg"}]);
-jQuery.Prefetch({image: {url: "images/1.jpg"}, someOther: {url: "images/2.jpg"}, third: {url: "images/3.jpg"}});
+jQuery.Prefetch([{image: "images/1.jpg"}, {image: "images/2.jpg"}, {image: "images/3.jpg"}]);
+jQuery.Prefetch({key1: {file: "images/1.jpg"}, key2: {file: "images/2.jpg"}}, {objectProperty: "file"});
 jQuery.Prefetch("images/1.jpg");
 ```
 
 
-## Use Prefetch manually
+## Use Prefetch the manually way
 The Prefetch-Object can be used in a manual manner or to control its behavior:
 ```JS
 // use public function directly or chained
+var preload = jQuery.Prefetch();
 preload.addImage(["images/1.jpg", "images/2.jpg", "images/3.jpg"]);
 preload.addImage("images/4.jpg")
        .addImage("images/5.jpg")
@@ -72,29 +73,29 @@ preload.addImage("images/4.jpg")
 ## Configuration
 The configuration can be changed directly in the constructor or manually on a Prefetch instance:
 ```JS
-jQuery.Prefetch(["images/1.jpg", "images/2.jpg", "images/3.jpg"], {delay: 0});
-jQuery("img, div").Prefetch({delay: 0});
+jQuery.Prefetch(["images/1.jpg", "images/2.jpg", "images/3.jpg"], {delay: 1000});
+jQuery("img, div").Prefetch({delay: 1000});
 
 var preload = jQuery.Prefetch();
-preload.configuration.delay = 0;
+preload.configuration.objectProperty = "file";
 ```
 
 
 ## Parameter
 The following configurations is available by default:
 
-Name               | Type       | Default | Description
------------------- | ---------- | ------- | -----------
-chainable          | *boolean*  | *true*  | by default Prefetch is chainable and will return all elements, if set to `false` it will return the created plugin instance itself for further use
-startAutomatically | *boolean*  | *true*  | determine to automatically start loading images if available on initialization
-delay              | *integer*  | *0*     | time in milliseconds to wait after initialization before loading images
-simultaneous       | *integer*  | *3*     | amount of images should be loaded simultaneously, zero means no limit
-objectProperty     | *string*   | *"url"* | name of the property of passed object to look for image source
-onStartLoading     | *function* | *null*  | optional callback, triggered when loading starts *(parameter: prefetch instance)*
-onImageLoaded      | *function* | *null*  | optional callback, triggered when a single image was loaded *(parameter: image source, prefetch instance)*
-onImageError       | *function* | *null*  | optional callback, triggered when a single image could not be loaded *(parameter: image source, prefetch instance)*
-onAbortLoading     | *function* | *null*  | optional callback, triggered when the loading was aborted while loading with `stop` or `destroy` function *(parameter: prefetch instance)*
-onAllLoaded        | *function* | *null*  | optional callback, triggered when all images was loaded *(parameter: prefetch instance)*
+Name               | Type       | Default   | Description
+------------------ | ---------- | --------- | -----------
+chainable          | *boolean*  | *true*    | by default Prefetch is chainable and will return all elements, if set to `false` it will return the created plugin instance itself for further use
+startAutomatically | *boolean*  | *true*    | determine to automatically start loading images if available on initialization
+delay              | *integer*  | *0*       | time in milliseconds to wait after initialization before loading images
+simultaneous       | *integer*  | *3*       | amount of images should be loaded simultaneously, zero means no limit
+objectProperty     | *string*   | *"image"* | name of the property of passed object to look for image source
+onStartLoading     | *function* | *null*    | optional callback, triggered when loading starts *(parameter: prefetch instance)*
+onImageLoaded      | *function* | *null*    | optional callback, triggered when a single image was loaded *(parameter: image source, prefetch instance)*
+onImageError       | *function* | *null*    | optional callback, triggered when a single image could not be loaded *(parameter: image source, prefetch instance)*
+onAbortLoading     | *function* | *null*    | optional callback, triggered when the loading was aborted while loading with `stop` or `destroy` function *(parameter: prefetch instance)*
+onAllLoaded        | *function* | *null*    | optional callback, triggered when all images was loaded *(parameter: prefetch instance)*
 
 
 ## Bugs / Feature request

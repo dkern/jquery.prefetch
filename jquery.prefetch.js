@@ -1,5 +1,5 @@
 /*!
- * jQuery Prefetch - v0.1.1
+ * jQuery Prefetch - v0.1.2
  * http://jquery.eisbehr.de/prefetch/
  * http://eisbehr.de
  *
@@ -19,7 +19,7 @@
     /**
      * makes the plugin available direct trough jquery
      * @param {Array|object|string} [imageList]
-     * @param {*} [settings]
+     * @param {object} [settings]
      * @returns {Plugin}
      */
     $.Prefetch = $.prefetch = function(imageList, settings)
@@ -29,7 +29,7 @@
 
     /**
      * makes the plugin available trough jquery selector
-     * @param {*} [settings]
+     * @param {object} [settings]
      * @returns {object|Plugin}
      */
     $.fn.Prefetch = $.fn.prefetch = function(settings)
@@ -90,7 +90,7 @@
             startAutomatically: true,
             delay: 0,
             simultaneous: 3,
-            objectProperty: "url",
+            objectProperty: "image",
 
             // callbacks
             onStartLoading: null,
@@ -110,7 +110,7 @@
         {
             var plugin = this;
 
-            if( this.configuration.startAutomatically )
+            if( this._images.length > 0 && this.configuration.startAutomatically )
                 setTimeout(function()
                 {
                     plugin.start();
@@ -153,55 +153,55 @@
          * preload a single image object
          * @access private
          * @type {function}
-         * @param {object} image
+         * @param {object} imageObject
          * @return void
          */
-        _preloadImage: function(image)
+        _preloadImage: function(imageObject)
         {
             // start loading
-            image.running = true;
+            imageObject.running = true;
             ++this._runningAmount;
 
             var plugin = this,
-                imageObj = $(new Image());
+                imagePreload = $(new Image());
 
             // bind error callback
-            imageObj.error(function()
+            imagePreload.error(function()
             {
-                plugin._finishImage(image, false);
+                plugin._finishImage(imageObject, false);
             });
 
             // bind loaded event
-            imageObj.one("load", function()
+            imagePreload.one("load", function()
             {
                 // unbind event and remove image object
-                imageObj.unbind("load").remove();
-                plugin._finishImage(image, true);
+                imagePreload.unbind("load").remove();
+                plugin._finishImage(imageObject, true);
             });
 
             // set source and start preload
-            imageObj.attr("src", image.url);
+            imagePreload.attr("src", imageObject.file);
 
             // call after load even on cached image
-            if( imageObj.complete ) imageObj.load();
+            if( imagePreload.complete ) imagePreload.load();
         },
 
         /**
          * finish image loading callback
          * @access private
          * @type {function}
-         * @param {object} image
+         * @param {object} imageObject
          * @param {boolean} loaded
          * @return void
          */
-        _finishImage: function(image, loaded)
+        _finishImage: function(imageObject, loaded)
         {
-            image.loaded = true;
-            image.running = false;
+            imageObject.loaded = true;
+            imageObject.running = false;
             --this._runningAmount;
 
-            if( loaded ) this._triggerCallback(this.configuration.onImageLoaded, image.url);
-            else this._triggerCallback(this.configuration.onImageError, image.url);
+            if( loaded ) this._triggerCallback(this.configuration.onImageLoaded, imageObject.file);
+            else this._triggerCallback(this.configuration.onImageError, imageObject.file);
 
             this._checkForNextImage();
         },
@@ -299,7 +299,7 @@
          */
         addImage: function(image)
         {
-            var imageObject = {url: "", running: false, loaded: false},
+            var imageObject = {file: "", running: false, loaded: false},
                 inputType = Object.prototype.toString.call(image);
 
             // get images from array
@@ -307,7 +307,7 @@
             {
                 for( var i = 0; i < image.length; ++i )
                     if( i in image )
-                        this._images.push(jQuery.extend({}, imageObject, {url: image[i].url || image[i]}));
+                        this._images.push(jQuery.extend({}, imageObject, {file: image[i][this.configuration.objectProperty] || image[i]}));
             }
 
             // get images from object or jquery selector
@@ -320,13 +320,13 @@
                     var element = $(this);
 
                     if( this.hasOwnProperty(plugin.configuration.objectProperty) || element.attr("src") || element.css("background-image") )
-                        plugin._images.push(jQuery.extend({}, imageObject, {url: this[plugin.configuration.objectProperty] || element.attr("src") || element.css("background-image").replace(/^url\(["']?/, '').replace(/["']?\)$/, '')}));
+                        plugin._images.push(jQuery.extend({}, imageObject, {file: this[plugin.configuration.objectProperty] || element.attr("src") || element.css("background-image").replace(/^url\(["']?/, '').replace(/["']?\)$/, '')}));
                 });
             }
 
             // get single image from string
             else if( inputType == "[object String]" )
-                this._images.push(jQuery.extend({}, imageObject, {url: image}));
+                this._images.push(jQuery.extend({}, imageObject, {file: image}));
 
             return this;
         },
