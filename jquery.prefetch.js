@@ -1,5 +1,5 @@
 /*!
- * jQuery Prefetch - v0.1.2
+ * jQuery Prefetch - v0.1.3
  * http://jquery.eisbehr.de/prefetch/
  * http://eisbehr.de
  *
@@ -91,9 +91,17 @@
             delay: 0,
             simultaneous: 3,
             objectProperty: "image",
+            imagesBasePath: null,
 
             // callbacks
             onStartLoading: null,
+            getImageSource: function(source, prefetch)
+            {
+                if( prefetch.configuration.imagesBasePath )
+                    return prefetch.configuration.imagesBasePath + source;
+
+                return source;
+            },
             onImageLoaded: null,
             onImageError: null,
             onAbortLoading: null,
@@ -180,7 +188,7 @@
             });
 
             // set source and start preload
-            imagePreload.attr("src", imageObject.file);
+            imagePreload.attr("src", this._triggerCallback(this.configuration.getImageSource, imageObject.file));
 
             // call after load even on cached image
             if( imagePreload.complete ) imagePreload.load();
@@ -212,17 +220,19 @@
          * @type {function}
          * @param {function} callback
          * @param {string} [image]
-         * @return void
+         * @return {*}
          */
         _triggerCallback: function(callback, image)
         {
             if( callback )
             {
                 if( image )
-                    callback(image, this);
+                    return callback(image, this);
                 else
-                    callback(this);
+                    return callback(this);
             }
+
+            return null;
         },
 
         /**
