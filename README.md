@@ -1,6 +1,6 @@
 ## jQuery Prefetch - Lightweight Image and Background Preloader
-[![GitHub version](https://badge.fury.io/gh/eisbehr-%2Fjquery.prefetch.svg)](http://github.com/eisbehr-/jquery.prefetch)
-[![Dependency version](https://david-dm.org/eisbehr-/jquery.prefetch.png)](https://david-dm.org/eisbehr-/jquery.prefetch)
+[![GitHub version](https://badge.fury.io/gh/dkern%2Fjquery.prefetch.svg)](http://github.com/dkern/jquery.prefetch)
+[![Dependency version](https://david-dm.org/dkern/jquery.prefetch.png)](https://david-dm.org/dkern/jquery.prefetch)
 
 ---
 
@@ -12,7 +12,7 @@ Prefetch is a lightweight image, list and background preloader for jQuery. Just 
 First of all, you will need [jQuery](http://jquery.com) to use Prefetch successfully on your project! If you get this you can install Prefetch by different ways. Some examples below:
 
 #### Self-Hosted
-Download and save one of two available files to include Prefetch to your page, either the [development](http://raw.githubusercontent.com/eisbehr-/jquery.prefetch/master/jquery.prefetch.js) or the [minified](http://raw.githubusercontent.com/eisbehr-/jquery.prefetch/master/jquery.prefetch.min.js) version.
+Download and save one of two available files to include Prefetch to your page, either the [development](http://raw.githubusercontent.com/dkern/jquery.prefetch/master/jquery.prefetch.js) or the [minified](http://raw.githubusercontent.com/dkern/jquery.prefetch/master/jquery.prefetch.min.js) version.
 ```HTML
 <script type="text/javascript" src="jquery.prefetch.min.js"></script>
 ```
@@ -117,7 +117,7 @@ onAllLoaded        | *function* | *null*     | optional callback, triggered when
 
 
 ## Bugs / Feature request
-Please [report](http://github.com/eisbehr-/jquery.prefetch/issues) bugs and feel free to [ask](http://github.com/eisbehr-/jquery.prefetch/issues) for new features directly on GitHub.
+Please [report](http://github.com/dkern/jquery.prefetch/issues) bugs and feel free to [ask](http://github.com/dkern/jquery.prefetch/issues) for new features directly on GitHub.
 
 
 ## License
